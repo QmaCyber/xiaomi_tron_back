@@ -6,7 +6,13 @@ from rest_framework.response import Response
 from .models import Product
 
 class ProductsView(APIView):
-	def get(self, request):
-		Products = Product.objects.all()
-		serializer = ProductsSerializer(Products, many=True)
-		return Response({"products": serializer.data})
+	def get(self, request, categorySlug=''):
+		if categorySlug=='':
+			Products = Product.objects.all()
+			serializer = ProductsSerializer(Products, many=True)
+			return Response({"products": serializer.data})
+		else: 
+			_category = Category.objects.get(slug=categorySlug)
+			categoryProducts = Product.objects.filter(category=_category)
+			serializer = ProductsSerializer(categoryProducts, many=True)
+			return Response({"products": serializer.data})
