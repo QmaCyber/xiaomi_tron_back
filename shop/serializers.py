@@ -5,7 +5,7 @@ class ProductsSerializer(serializers.Serializer):
 	name = serializers.CharField()
 	image = serializers.ImageField()
 	description = serializers.CharField()
-	price = serializers.DecimalField(max_digits=10, decimal_places=2)
+	price = serializers.IntegerField()
 	stock = serializers.IntegerField()
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
