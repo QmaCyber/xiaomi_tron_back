@@ -1,9 +1,8 @@
-from .models import Category, Product, PopularProduct
+from .models import Category, Product, PopularProduct, imagesSlider
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import ProductsSerializer, PopularProductsSerializer
+from .serializers import ProductsSerializer, PopularProductsSerializer, imagesSliderSerializer
 from rest_framework.response import Response
-from .models import Product
 from django.http import HttpResponse
 
 
@@ -35,4 +34,16 @@ class popularProductsView(APIView):
 		Product = PopularProduct.objects.all()
 		serializer = PopularProductsSerializer(Product, many=True)
 		return Response({"popolarproducts": serializer.data})
-		
+
+class popularProductsView(APIView):
+	def get(self, request):
+		product = PopularProduct.objects.all()
+		serializer = PopularProductsSerializer(Product, many=True)
+		return Response({"popolarproducts": serializer.data})
+
+
+class slider(APIView):
+	def get(self, request):
+		images = imagesSlider.objects.all()
+		serializer =  imagesSliderSerializer(images, many=True)
+		return Response({"images": serializer.data})

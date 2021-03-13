@@ -35,3 +35,10 @@ class PopularProduct(models.Model):
 	updated = models.DateTimeField(auto_now = True)
 	def __str__(self):
 		return self.name
+
+
+class imagesSlider(models.Model):
+	name = models.CharField(max_length=200, db_index=True)
+	image = models.ImageField(upload_to='images', blank=False)
+	def __str__(self):
+		return self.name

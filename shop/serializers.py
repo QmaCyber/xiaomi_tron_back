@@ -24,4 +24,6 @@ class PopularProductsSerializer(serializers.Serializer):
 	created = serializers.DateTimeField()
 	updated = serializers.DateTimeField()
 
-	
+class imagesSliderSerializer(serializers.Serializer):
+	name = serializers.CharField()
+	image = serializers.ImageField()
