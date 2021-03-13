@@ -1,10 +1,12 @@
-from .models import Category, Product
+from .models import Category, Product, PopularProduct
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import ProductsSerializer
+from .serializers import ProductsSerializer, PopularProductsSerializer
 from rest_framework.response import Response
 from .models import Product
 from django.http import HttpResponse
+
+
 
 class ProductsView(APIView):
 	def get(self, request):
@@ -27,3 +29,10 @@ class ProductView(APIView):
 			product.save()
 		serializer = ProductsSerializer(product, many=False)
 		return Response({"product":serializer.data})
+
+class popularProductsView(APIView):
+	def get(self, request, productSlug=''):
+		Product = PopularProduct.objects.all()
+		serializer = PopularProductsSerializer(Product, many=True)
+		return Response({"popolarproducts": serializer.data})
+		
