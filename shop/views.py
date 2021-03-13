@@ -35,4 +35,13 @@ class popularProductsView(APIView):
 		Product = PopularProduct.objects.all()
 		serializer = PopularProductsSerializer(Product, many=True)
 		return Response({"popolarproducts": serializer.data})
-		
+	
+class SearchView(APIView):
+	def get(self, request, text):
+		products = Product.objects.all()
+		foundProducts = []
+		for product in products:
+			if text in product.name:
+				foundProducts.append(product)
+		serializer = ProductsSerializer(foundProducts, many=True)
+		return Response({"products":serializer.data})
