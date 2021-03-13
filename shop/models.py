@@ -36,12 +36,8 @@ class PopularProduct(models.Model):
 	def __str__(self):
 		return self.name
 
-<<<<<<< HEAD
-
 class imagesSlider(models.Model):
 	name = models.CharField(max_length=200, db_index=True)
 	image = models.ImageField(upload_to='images', blank=False)
 	def __str__(self):
 		return self.name
-=======
->>>>>>> 463e93f70aea92dee839647aff14fa5071699ba0

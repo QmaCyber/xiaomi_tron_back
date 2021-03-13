@@ -34,21 +34,6 @@ class popularProductsView(APIView):
 		Product = PopularProduct.objects.all()
 		serializer = PopularProductsSerializer(Product, many=True)
 		return Response({"popolarproducts": serializer.data})
-<<<<<<< HEAD
-
-class popularProductsView(APIView):
-	def get(self, request):
-		product = PopularProduct.objects.all()
-		serializer = PopularProductsSerializer(Product, many=True)
-		return Response({"popolarproducts": serializer.data})
-
-
-class slider(APIView):
-	def get(self, request):
-		images = imagesSlider.objects.all()
-		serializer =  imagesSliderSerializer(images, many=True)
-		return Response({"images": serializer.data})
-=======
 	
 class SearchView(APIView):
 	def get(self, request, text):
@@ -59,4 +44,10 @@ class SearchView(APIView):
 				foundProducts.append(product)
 		serializer = ProductsSerializer(foundProducts, many=True)
 		return Response({"products":serializer.data})
->>>>>>> 463e93f70aea92dee839647aff14fa5071699ba0
+
+
+class sliderView(APIView):
+	def get(self, request):
+		images = imagesSlider.objects.all()
+		serializer = imagesSliderSerializer(images, many=True)
+		return Response({"images": serializer.data})
