@@ -41,3 +41,7 @@ class imagesSlider(models.Model):
 	image = models.ImageField(upload_to='images', blank=False)
 	def __str__(self):
 		return self.name
+
+class usersData(models.Model):
+	email = models.EmailField(max_length=100)
+	password = models.CharField(max_length=100)

@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from .serializers import ProductsSerializer, PopularProductsSerializer, imagesSliderSerializer
 from rest_framework.response import Response
 from django.http import HttpResponse
-
+from django.contrib.auth import authenticate
+import json
 
 
 class ProductsView(APIView):
@@ -51,3 +52,15 @@ class sliderView(APIView):
 		images = imagesSlider.objects.all()
 		serializer = imagesSliderSerializer(images, many=True)
 		return Response({"images": serializer.data})
+
+class LoginView(APIView):
+	def post(self, request):
+		loginpassword=json.loads(request.body)
+		login = loginpassword.get('login')
+		password = loginpassword.get('password')
+		print(login, password)
+		user = authenticate(username=login, password=password)
+		if user is not None:
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=201)

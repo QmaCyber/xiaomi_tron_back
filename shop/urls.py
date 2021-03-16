@@ -7,6 +7,8 @@ urlpatterns = [
 	path('products/<str:categorySlug>', views.CategoryView.as_view()),
 	path('product/<str:productSlug>', views.ProductView.as_view()),
 	path('popularproducts/', views.popularProductsView.as_view()),
-	path('sliders/', views.sliderView.as_view()),
-	path('search/<str:text>', views.SearchView.as_view())
+	path('slider/', views.sliderView.as_view()),
+	path('search/<str:text>', views.SearchView.as_view()),
+	path('auth', views.LoginView.as_view()),
 ]
+
