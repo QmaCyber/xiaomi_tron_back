@@ -1,7 +1,7 @@
-from .models import Category, Product, PopularProduct, imagesSlider
+from .models import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import ProductsSerializer, PopularProductsSerializer, imagesSliderSerializer
+from .serializers import *
 from rest_framework.response import Response
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
@@ -30,7 +30,7 @@ class ProductView(APIView):
 		serializer = ProductsSerializer(product, many=False)
 		return Response({"product":serializer.data})
 
-class popularProductsView(APIView):
+class PopularProductsView(APIView):
 	def get(self, request, productSlug=''):
 		Product = PopularProduct.objects.all()
 		serializer = PopularProductsSerializer(Product, many=True)
@@ -41,16 +41,16 @@ class SearchView(APIView):
 		products = Product.objects.all()
 		foundProducts = []
 		for product in products:
-			if text in product.name:
+			if text.lower() in product.name.lower():
 				foundProducts.append(product)
 		serializer = ProductsSerializer(foundProducts, many=True)
 		return Response({"products":serializer.data})
 
 
-class sliderView(APIView):
+class SlidersView(APIView):
 	def get(self, request):
 		images = imagesSlider.objects.all()
-		serializer = imagesSliderSerializer(images, many=True)
+		serializer = ImagesSliderSerializer(images, many=True)
 		return Response({"images": serializer.data})
 
 class LoginView(APIView):
@@ -59,8 +59,21 @@ class LoginView(APIView):
 		login = loginpassword.get('login')
 		password = loginpassword.get('password')
 		print(login, password)
+		request.session['token']='231321'
+		print(request.session['token'])
 		user = authenticate(username=login, password=password)
 		if user is not None:
 			return HttpResponse(status=200)
 		else:
 			return HttpResponse(status=201)
+
+class NewsView(APIView):
+	def get(self, request, newsSlug=''):
+		if newsSlug =='':
+			news = News.objects.all()
+			serializer = NewsSerializer(news, many=True)
+			return Response({"News": serializer.data})
+		else:
+			news = News.objects.get(slug=newsSlug)
+			serializer = NewsSerializer(news, many=False)
+			return Response({"News": serializer.data})
