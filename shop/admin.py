@@ -9,6 +9,10 @@ class CategoryAdmin(admin.ModelAdmin):
 				return HttpResponseRedirect('NO')
 		return super(CategoryAdmin, self).add_view(request)
 
+
+class ArticleAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product)
 admin.site.register(PopularProduct)

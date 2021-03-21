@@ -49,7 +49,7 @@ class SearchView(APIView):
 
 class SlidersView(APIView):
 	def get(self, request):
-		images = imagesSlider.objects.all()
+		images = ImagesSlider.objects.all()
 		serializer = ImagesSliderSerializer(images, many=True)
 		return Response({"images": serializer.data})
 
@@ -77,3 +77,9 @@ class NewsView(APIView):
 			news = News.objects.get(slug=newsSlug)
 			serializer = NewsSerializer(news, many=False)
 			return Response({"News": serializer.data})
+
+class ReviewsView(APIView):
+	def get(self, request):
+		reviews = Review.objects.all()
+		serializer = ReviewSerializer(reviews, many=True)
+		return Response({"reviews": serializer.data})

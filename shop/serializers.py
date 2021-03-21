@@ -33,3 +33,8 @@ class NewsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	image = serializers.ImageField()
 	information = serializers.CharField()
+
+class ReviewSerializer(serializers.Serializer):
+	name = serializers.CharField()
+	slug = serializers.CharField()
+	reviewUrl = serializers.CharField()
