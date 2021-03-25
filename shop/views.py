@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 import json
 
+from django.contrib.auth.models import User
+
 
 class ProductsView(APIView):
 	def get(self, request):
@@ -53,19 +55,11 @@ class SlidersView(APIView):
 		serializer = ImagesSliderSerializer(images, many=True)
 		return Response({"images": serializer.data})
 
-class LoginView(APIView):
-	def post(self, request):
-		loginpassword=json.loads(request.body)
-		login = loginpassword.get('login')
-		password = loginpassword.get('password')
-		print(login, password)
-		request.session['token']='231321'
-		print(request.session['token'])
-		user = authenticate(username=login, password=password)
-		if user is not None:
-			return HttpResponse(status=200)
-		else:
-			return HttpResponse(status=201)
+class ReviewsView(APIView):
+	def get(self, request):
+		reviews = Review.objects.all()
+		serializer = ReviewSerializer(reviews, many=True)
+		return Response({"reviews": serializer.data})
 
 class NewsView(APIView):
 	def get(self, request, newsSlug=''):
@@ -78,8 +72,35 @@ class NewsView(APIView):
 			serializer = NewsSerializer(news, many=False)
 			return Response({"News": serializer.data})
 
-class ReviewsView(APIView):
-	def get(self, request):
-		reviews = Review.objects.all()
-		serializer = ReviewSerializer(reviews, many=True)
-		return Response({"reviews": serializer.data})
+class LoginView(APIView):
+	def post(self, request):
+		loginpassword=json.loads(request.body)
+		login = loginpassword.get('login')
+		password = loginpassword.get('password')
+		user = authenticate(username=login, password=password)
+		if user is not None:
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=201)
+
+class AuthView(APIView):
+	pass
+
+class ResiterView(APIView):
+	def post(self, request):
+		loginpassword=json.loads(request.body)
+		login = loginpassword.get('login')
+		password = loginpassword.get('password')
+		try:
+			userLog = User.objects.get(username=login)
+		except User.DoesNotExist:
+			userLog = True
+		else:
+			userLog = False
+		
+		if userLog:
+			user = User.objects.create_user(username=login,
+											password=password)
+			return HttpResponse(status=200)	
+		else:
+			return HttpResponse(status = 201)
