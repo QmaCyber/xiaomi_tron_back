@@ -42,7 +42,13 @@ class PopularProduct(models.Model):
 	def __str__(self):
 		return self.name
 
+class ImageSliderColors(models.Model):
+	color = models.CharField(max_length=50)
+	def __str__(self):
+		return self.color
+
 class ImagesSlider(models.Model):
+	colors = models.ForeignKey(ImageSliderColors, related_name='colors', on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, db_index=True)
 	image = models.ImageField(upload_to='images', blank=False)
 	def __str__(self):

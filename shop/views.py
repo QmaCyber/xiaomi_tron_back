@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 import json
+from rest_framework.authtoken.models import Token
 
 from django.contrib.auth.models import User
 
@@ -79,12 +80,12 @@ class LoginView(APIView):
 		password = loginpassword.get('password')
 		user = authenticate(username=login, password=password)
 		if user is not None:
+			
+			token = Token.objects.create(user=user)
 			return HttpResponse(status=200)
+			print(token)
 		else:
 			return HttpResponse(status=201)
-
-class AuthView(APIView):
-	pass
 
 class ResiterView(APIView):
 	def post(self, request):
