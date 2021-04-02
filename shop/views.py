@@ -17,12 +17,19 @@ class ProductsView(APIView):
 		serializer = ProductsSerializer(Products, many=True)
 		return Response({"products": serializer.data})
 		
-class CategoryView(APIView):
+class ProductCategoryView(APIView):
 	def get(self, request, categorySlug=''):
 		_category = Category.objects.get(slug=categorySlug)
 		categoryProducts = Product.objects.filter(category=_category)
 		serializer = ProductsSerializer(categoryProducts, many=True)
 		return Response({"products": serializer.data})
+
+class CategoryView(APIView):
+	def get(self, request):
+		categorys = Category.objects.all()
+		serializer = CategorySerializer(categorys, many=True)
+		return Response({'categorys': serializer.data})
+		
 
 class ProductView(APIView):
 	def get(self, request, productSlug=''):

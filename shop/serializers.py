@@ -24,6 +24,10 @@ class PopularProductsSerializer(serializers.Serializer):
 	created = serializers.DateTimeField()
 	updated = serializers.DateTimeField()
 
+class CategorySerializer(serializers.Serializer):
+	name = serializers.CharField()
+	slug = serializers.CharField()
+
 class ImagesSliderSerializer(serializers.Serializer):
 	colors = serializers.CharField()
 	name = serializers.CharField()

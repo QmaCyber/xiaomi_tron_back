@@ -1,5 +1,5 @@
 from django.db import models
-import jwt
+from autoslug import AutoSlugField
 from datetime import datetime, timedelta
 from django.conf import settings 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -8,7 +8,7 @@ from django.db import models
 
 class Category(models.Model):
 	name = models.CharField(max_length=200, db_index=True)
-	slug = models.SlugField(default='')
+	slug = AutoSlugField(populate_from='name')
 	def __str__(self):
 		return self.name
 
@@ -16,7 +16,7 @@ class Category(models.Model):
 class Product(models.Model):
 	category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, db_index=True)
-	slug = models.SlugField(default='')
+	slug = AutoSlugField(populate_from='name')
 	image = models.ImageField(upload_to='images', blank=True)
 	description = models.TextField(blank=True)
 	price = models.PositiveIntegerField()
@@ -30,7 +30,7 @@ class Product(models.Model):
 
 class PopularProduct(models.Model):
 	name = models.CharField(max_length=200, db_index=True)
-	slug = models.SlugField(default='')
+	slug = AutoSlugField(populate_from='name')
 	image = models.ImageField(upload_to='images', blank=True)
 	description = models.TextField(blank=True)
 	oldprice = models.PositiveIntegerField()
@@ -56,7 +56,7 @@ class ImagesSlider(models.Model):
 
 class News(models.Model):
 	name = models.CharField(max_length=30, db_index=True)
-	slug = models.SlugField(blank=False, default='')
+	slug = AutoSlugField(populate_from='name')
 	image = models.ImageField(upload_to='images', blank=True)
 	information = models.TextField(max_length=1000, blank=False)
 
@@ -66,5 +66,5 @@ class News(models.Model):
 
 class Review(models.Model):
 	name = models.CharField(max_length=30, db_index=True)
-	slug = models.SlugField(default='')
+	slug = AutoSlugField(populate_from='name')
 	reviewUrl = models.URLField(max_length=254)
