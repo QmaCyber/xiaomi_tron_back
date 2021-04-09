@@ -6,12 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-SECRET_KEY = 'dr10*o2bwsjes%53agm&0qmt#8_)amo&m-@a7$%52**lm%z^pp'
+SECRET_KEY = 'al*&2umv(=o5)q+&db^ej+9od+&vqed9%xbr67l*cieh6987)8'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS =  ['127.0.0.1', 'localhost']
 
 
 INSTALLED_APPS = [
@@ -23,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
     'rest_framework',
-    'corsheaders',
     'adminboard',
     'client',
 ]
@@ -36,7 +34,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', 
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -60,19 +58,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'shop.wsgi.application'
 
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shop',
-        'USER': 'shoper',
-        'PASSWORD': 'shop',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'USER' : 'shoper',
+        'PASSWORD' : 'shop',
+        'HOST' : '127.0.0.1',
+        'PORT' : '5432',
     }
 }
-
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -119,3 +114,4 @@ CORS_ORIGIN_WHITELIST = [
     "http://192.168.1.144:3000",
     "http://localhost:3000",
 ]
+

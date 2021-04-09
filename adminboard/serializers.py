@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 
+
 class ProductsSerializer(serializers.Serializer):
 	category = serializers.CharField()
 	name = serializers.CharField()
@@ -11,7 +12,6 @@ class ProductsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
-	updated = serializers.DateTimeField()
 
 
 class PopularProductsSerializer(serializers.Serializer):
@@ -24,7 +24,6 @@ class PopularProductsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
-	updated = serializers.DateTimeField()
 
 
 class CategorySerializer(serializers.Serializer):
