@@ -12,6 +12,10 @@ class ProductsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
+<<<<<<< HEAD
+=======
+
+>>>>>>> e1d45bec88d8e038b67ebc641521c3e239c77903
 
 
 class PopularProductsSerializer(serializers.Serializer):
@@ -24,6 +28,10 @@ class PopularProductsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
+<<<<<<< HEAD
+=======
+
+>>>>>>> e1d45bec88d8e038b67ebc641521c3e239c77903
 
 
 class CategorySerializer(serializers.Serializer):
