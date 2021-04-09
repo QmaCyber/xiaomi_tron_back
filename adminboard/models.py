@@ -35,19 +35,18 @@ class PopularProduct(models.Model):
 		return self.name
 
 class New(models.Model):
-	name = models.CharField(max_length=30, db_index=True)
-	title = models.CharField(max_length=70)
-	slug = AutoSlugField(populate_from='name')
+	title = models.CharField(max_length=70, db_index=True)
+	shortDescription = models.TextField(max_length=300, blank=True)
 	image = models.ImageField(upload_to='images', blank=True)
+	url = models.URLField(max_length=250, default="")
 	created = models.DateTimeField(auto_now_add=True)
-	description = models.TextField(blank=True)
-	content = models.TextField(blank=True)
-	def __str__(self):
-		return self.name
 
-class Rewiew(models.Model):
+	def __str__(self):
+		return self.title
+
+class Review(models.Model):
 	name = models.CharField(max_length=50, db_index=True)
-	video = models.URLField(max_length=250)
+	video = models.URLField(max_length=250, default='')
 	def __str__(self):
 		return self.name
 

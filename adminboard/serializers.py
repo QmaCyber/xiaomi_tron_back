@@ -12,10 +12,8 @@ class ProductsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
-<<<<<<< HEAD
-=======
 
->>>>>>> e1d45bec88d8e038b67ebc641521c3e239c77903
+
 
 
 class PopularProductsSerializer(serializers.Serializer):
@@ -28,10 +26,6 @@ class PopularProductsSerializer(serializers.Serializer):
 	slug = serializers.CharField()
 	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
-<<<<<<< HEAD
-=======
-
->>>>>>> e1d45bec88d8e038b67ebc641521c3e239c77903
 
 
 class CategorySerializer(serializers.Serializer):
@@ -46,15 +40,13 @@ class ImagesSliderSerializer(serializers.Serializer):
 
 
 class NewSerializer(serializers.Serializer):
-	name = serializers.CharField()
 	title = serializers.CharField()
-	slug = serializers.CharField()
+	shortDescription = serializers.CharField()
 	image = serializers.ImageField()
+	url = serializers.CharField()
 	created = serializers.DateTimeField()
-	description = serializers.CharField()
-	content = serializers.CharField()
 
 
 class ReviewSerializer(serializers.Serializer):
 	name = serializers.CharField()
-	reviewUrl = serializers.CharField()
+	video = serializers.CharField()
