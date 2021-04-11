@@ -8,9 +8,8 @@ urlpatterns = [
 	path('categorys', views.CategoryView.as_view()),
 	path('product/<str:productSlug>', views.ProductView.as_view()),
 	path('popularproducts/', views.PopularProductsView.as_view()),
-	path('sliders/', views.SlidersView.as_view()),
+	path('slides/', views.SlidesView.as_view()),
 	path('search/<str:text>', views.SearchView.as_view()),
 	path('news/', views.NewsView.as_view()),
-	path('news/<str:newsSlug>', views.NewsView.as_view()),
 	path('reviews/', views.ReviewsView.as_view()),
 ]

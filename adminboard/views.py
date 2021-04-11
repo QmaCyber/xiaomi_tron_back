@@ -61,9 +61,9 @@ class SearchView(APIView):
 		return Response({"products": serializer.data})
 
 
-class SlidersView(APIView):
+class SlidesView(APIView):
 	def get(self, request):
-		images = ImagesSlider.objects.all()
+		images = SliderImage.objects.all()
 		serializer = ImagesSliderSerializer(images, many=True)
 		return Response({"images": serializer.data})
 
@@ -76,12 +76,7 @@ class ReviewsView(APIView):
 
 
 class NewsView(APIView):
-	def get(self, request, newsSlug=''):
-		if newsSlug == '':
-			news = New.objects.all()
-			serializer = NewSerializer(news, many=True)
-			return Response({"News": serializer.data})
-		else:
-			news = New.objects.get(slug=newsSlug)
-			serializer = NewSerializer(news, many=False)
-			return Response({"News": serializer.data})
+	def get(self, request):
+		news = New.objects.all()
+		serializer = NewSerializer(news, many=True)
+		return Response({"News": serializer.data})
