@@ -1,14 +1,14 @@
+import json
+
 from .models import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
-from rest_framework.response import Response
-from django.http import HttpResponse
-from django.contrib.auth import authenticate
-import json
-from rest_framework.authtoken.models import Token
-
 from django.contrib.auth.models import User
+
+
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 
 
 class ProductsView(APIView):
@@ -52,13 +52,16 @@ class PopularProductsView(APIView):
 
 class SearchView(APIView):
 	def get(self, request, text):
-		products = Product.objects.all()
+		products1 = PopularProduct.objects.all() 
+		products2 = Product.objects.all()
 		foundProducts = []
-		for product in products:
+		for product in products1:
 			if text.lower() in product.name.lower():
 				foundProducts.append(product)
-		serializer = ProductsSerializer(foundProducts, many=True)
-		return Response({"products": serializer.data})
+		for product in products2:
+			if text.lower() in product.name.lower():
+				foundProducts.append(product)
+		return Response({"products":serializer.data})
 
 
 class SlidersView(APIView):
@@ -77,11 +80,53 @@ class ReviewsView(APIView):
 
 class NewsView(APIView):
 	def get(self, request, newsSlug=''):
-		if newsSlug == '':
-			news = New.objects.all()
-			serializer = NewSerializer(news, many=True)
+		if newsSlug =='':
+			news = News.objects.all()
+			serializer = NewsSerializer(news, many=True)
 			return Response({"News": serializer.data})
 		else:
-			news = New.objects.get(slug=newsSlug)
-			serializer = NewSerializer(news, many=False)
+			news = News.objects.get(slug=newsSlug)
+			serializer = NewsSerializer(news, many=False)
 			return Response({"News": serializer.data})
+
+
+class LoginView(APIView):
+	def post(self, request):
+		loginpassword=json.loads(request.body)
+		login = loginpassword.get('login')
+		password = loginpassword.get('password')
+		user = authenticate(username=login, password=password)
+		if user is not None:
+			token = Token.objects.create(user=user)
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status=201)
+
+
+class ResiterView(APIView):
+	def post(self, request):
+		loginpassword=json.loads(request.body)
+		login = loginpassword.get('login')
+		password = loginpassword.get('password')
+		try:
+			userLog = User.objects.get(username=login)
+		except User.DoesNotExist:
+			userLog = True
+		else:
+			userLog = False
+		
+		if userLog:
+			user = User.objects.create_user(username=login,
+											password=password)
+			return HttpResponse(status=200)	
+		else:
+			return HttpResponse(status = 201)
+
+
+class AuthMeView(APIView):
+	def post(self, request, token = ''):
+		tokens = Token.objects.all()
+		if token in tokens:
+			return HttpResponse(status=200)
+		else:
+			return HttpResponse(status = 201)

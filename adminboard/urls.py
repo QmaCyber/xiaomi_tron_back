@@ -13,4 +13,8 @@ urlpatterns = [
 	path('news/', views.NewsView.as_view()),
 	path('news/<str:newsSlug>', views.NewsView.as_view()),
 	path('reviews/', views.ReviewsView.as_view()),
+	path('authme/<str:token>', views.AuthMeView.as_view()),
+	path('auth', views.LoginView.as_view()),
+	path('reg', views.ResiterView.as_view()),
 ]
+
