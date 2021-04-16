@@ -36,9 +36,6 @@ class CategoryView(APIView):
 class ProductView(APIView):
 	def get(self, request, productSlug=''):
 		product = Product.objects.get(slug=productSlug)
-		if product.stock == 0:
-			product.available = False
-			product.save()
 		serializer = ProductsSerializer(product, many=False)
 		return Response({"product": serializer.data})
 
@@ -46,9 +43,6 @@ class ProductView(APIView):
 class PopularProductsView(APIView):
 	def get(self, request, productSlug=''):
 		Product = PopularProduct.objects.all()
-		if product.stock == 0:
-			product.available = False
-			product.save()
 		serializer = PopularProductsSerializer(Product, many=True)
 		return Response({"popolarproducts": serializer.data})
 

@@ -9,7 +9,6 @@ class ProductsSerializer(serializers.Serializer):
 	price = serializers.CharField()
 	stock = serializers.IntegerField()
 	slug = serializers.CharField()
-	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
 
 class PopularProductsSerializer(serializers.Serializer):
@@ -21,7 +20,6 @@ class PopularProductsSerializer(serializers.Serializer):
 	oldprice = serializers.IntegerField()
 	price = serializers.CharField()
 	stock = serializers.IntegerField()
-	available = serializers.BooleanField()
 	created = serializers.DateTimeField()
 
 

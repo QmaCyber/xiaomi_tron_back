@@ -19,7 +19,6 @@ class Product(models.Model):
 	description = models.TextField(blank=True)
 	price = models.PositiveIntegerField()
 	stock = models.PositiveIntegerField()
-	available = models.BooleanField(default=False)
 	created = models.DateTimeField(auto_now_add=True)
 	def image_img(self):
 		if self.image:
@@ -32,12 +31,9 @@ class Product(models.Model):
 	def available_ava(self):
 		if self.stock == 0:
 			return False
-			self.available = False
-			self.save()
 		else:
 			return True
-			self.available = True
-			self.save()
+	available_ava.short_description = 'available'
 
 	def __str__(self):
 		return self.name
@@ -53,6 +49,20 @@ class PopularProduct(models.Model):
 	stock = models.PositiveIntegerField()
 	available = models.BooleanField(default=True)
 	created = models.DateTimeField(auto_now_add=True)
+	def image_img(self):
+		if self.image:
+			return mark_safe(u'<a href="{0}" target="_blank"><img src="{0}" width="150"/></a>'.format(self.image.url))
+		else:
+			return 'No image'
+	image_img.short_description = 'Image'
+	image_img.allow_tags = True
+	
+	def available_ava(self):
+		if self.stock == 0:
+			return False
+		else:
+			return True
+	available_ava.short_description = 'available'
 
 	def __str__(self):
 		return self.name
