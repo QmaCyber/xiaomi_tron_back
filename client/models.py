@@ -16,4 +16,3 @@ class Cart(models.Model):
 class History(models.Model):
 	profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 	product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
-

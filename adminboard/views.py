@@ -49,19 +49,27 @@ class PopularProductsView(APIView):
 		serializer = PopularProductsSerializer(Product, many=True)
 		return Response({"popolarproducts": serializer.data})
 
-
+	
 class SearchView(APIView):
 	def get(self, request, text):
-		products1 = PopularProduct.objects.all() 
-		products2 = Product.objects.all()
+		popularProducts = PopularProduct.objects.all()
+		products = Product.objects.all()
+
+		foundPopularProducts = []
 		foundProducts = []
-		for product in products1:
+
+		for popularProduct in popularProducts:
+			if text.lower() in popularProduct.name.lower():
+				foundPopularProducts.append(popularProduct)
+		for product in products:
 			if text.lower() in product.name.lower():
 				foundProducts.append(product)
-		for product in products2:
-			if text.lower() in product.name.lower():
-				foundProducts.append(product)
-		return Response({"products":serializer.data})
+
+		popularProductSerializer = PopularProductsSerializer(foundPopularProducts, many = True)
+		productSerializer = ProductsSerializer(foundProducts, many=True)
+
+		return Response({"Products":( popularProductSerializer.data + productSerializer.data)})
+
 
 
 class SlidesView(APIView):
@@ -79,15 +87,14 @@ class ReviewsView(APIView):
 
 
 class NewsView(APIView):
-<<<<<<< HEAD
 	def get(self, request, newsSlug=''):
 		if newsSlug =='':
-			news = News.objects.all()
-			serializer = NewsSerializer(news, many=True)
+			news = New.objects.all()
+			serializer = NewSerializer(news, many=True)
 			return Response({"News": serializer.data})
 		else:
 			news = News.objects.get(slug=newsSlug)
-			serializer = NewsSerializer(news, many=False)
+			serializer = NewSerializer(news, many=False)
 			return Response({"News": serializer.data})
 
 
@@ -131,9 +138,4 @@ class AuthMeView(APIView):
 			return HttpResponse(status=200)
 		else:
 			return HttpResponse(status = 201)
-=======
-	def get(self, request):
-		news = New.objects.all()
-		serializer = NewSerializer(news, many=True)
-		return Response({"News": serializer.data})
->>>>>>> 3ca6c58c795d5a056c207ba48db833a61352ba42
+	
