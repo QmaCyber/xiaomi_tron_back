@@ -46,6 +46,9 @@ class ProductView(APIView):
 class PopularProductsView(APIView):
 	def get(self, request, productSlug=''):
 		Product = PopularProduct.objects.all()
+		if product.stock == 0:
+			product.available = False
+			product.save()
 		serializer = PopularProductsSerializer(Product, many=True)
 		return Response({"popolarproducts": serializer.data})
 
@@ -68,7 +71,7 @@ class SearchView(APIView):
 		popularProductSerializer = PopularProductsSerializer(foundPopularProducts, many = True)
 		productSerializer = ProductsSerializer(foundProducts, many=True)
 
-		return Response({"Products":( popularProductSerializer.data + productSerializer.data)})
+		return Response({"Products":(popularProductSerializer.data + productSerializer.data)})
 
 
 

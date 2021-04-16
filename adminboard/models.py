@@ -1,7 +1,6 @@
 from django.db import models
 from autoslug import AutoSlugField
-
-
+from django.utils.safestring import mark_safe
 
 class Category(models.Model):
 	name = models.CharField(max_length=200, db_index=True)
@@ -20,8 +19,25 @@ class Product(models.Model):
 	description = models.TextField(blank=True)
 	price = models.PositiveIntegerField()
 	stock = models.PositiveIntegerField()
-	available = models.BooleanField(default=True)
+	available = models.BooleanField(default=False)
 	created = models.DateTimeField(auto_now_add=True)
+	def image_img(self):
+		if self.image:
+			return mark_safe(u'<a href="{0}" target="_blank"><img src="{0}" width="150"/></a>'.format(self.image.url))
+		else:
+			return 'No image'
+	image_img.short_description = 'Image'
+	image_img.allow_tags = True
+	
+	def available_ava(self):
+		if self.stock == 0:
+			return False
+			self.available = False
+			self.save()
+		else:
+			return True
+			self.available = True
+			self.save()
 
 	def __str__(self):
 		return self.name
