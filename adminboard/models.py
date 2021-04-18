@@ -2,6 +2,7 @@ from django.db import models
 from autoslug import AutoSlugField
 from django.utils.safestring import mark_safe
 
+
 class Category(models.Model):
 	name = models.CharField(max_length=200, db_index=True)
 	slug = AutoSlugField(populate_from='name')

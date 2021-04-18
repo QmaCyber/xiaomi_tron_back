@@ -46,3 +46,6 @@ class ReviewSerializer(serializers.Serializer):
 	name = serializers.CharField()
 	reviewUrl = serializers.CharField()
 	video = serializers.CharField()
+
+class RandomNumverSerializer(serializers.Serializer):
+	randomNumber = serializers.IntegerField()

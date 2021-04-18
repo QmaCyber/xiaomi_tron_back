@@ -15,5 +15,6 @@ urlpatterns = [
 	path('authme/<str:token>', views.AuthMeView.as_view()),
 	path('auth', views.LoginView.as_view()),
 	path('reg', views.ResiterView.as_view()),
+	path('checkreg',views.CheckEmail.as_view()),
 ]
 
